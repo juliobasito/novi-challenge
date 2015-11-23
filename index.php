@@ -2,6 +2,10 @@
   // require composer autoload (load all my libraries)
   require 'vendor/autoload.php';
 
+
+    // require my models
+require 'models/User.php';
+
   session_start();
 
   // Slim initialisation
@@ -23,6 +27,28 @@
   $app->get('/', function() use ($app) {
   $app->render('index.php');
   });
+
+
+
+// POST de connexion
+  $app->post('/', function () use ($app) {
+  session_destroy();
+  $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
+  if ($isconnected){
+    $app->redirect($app->urlFor('profil'));
+  }
+  else{
+  $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+ }
+})->name('signIn');
+
+
+  // GET /
+  $app->get('/profil', function() use ($app) {
+  $app->render('profil/index.php');
+  })->name('profil');
+
+
 
   // GET /books/:book_id
   $app->get('/books/:book_id', function ($book_id) use ($app) {

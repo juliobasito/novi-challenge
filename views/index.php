@@ -1,3 +1,5 @@
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
@@ -11,8 +13,8 @@
   <!--FORMULAIRE ETUDIANT-->
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
-      <form id="user" class="form-group">
-        <h3 id="title">Conexion Etudiant</h3>
+      <form id="user"  method="POST" class="form-group">
+        <h3 id="title">Connexion Etudiant</h3>
         Mail : <input type="mail" name="mail" required class="form-control"><br/>
         Mot de passe : <input type="password" name="password" required class="form-control"><br/>
         <input type="submit" value="Login" class="btn btn-success">
@@ -23,8 +25,8 @@
   <!--FORMULAIRE FORMATEUR-->
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
-      <form id="teacher" class="form-group" style="display:none">
-        <h3 id="title">Conexion Formateur</h3>
+      <form id="teacher"  method="POST" class="form-group" style="display:none">
+        <h3 id="title">Connexion Formateur</h3>
         Mail : <input type="mail" name="mail" required class="form-control"><br/>
         Mot de passe : <input type="password" name="password" required class="form-control"><br/>
         <input type="submit" value="Login" class="btn btn-success">
@@ -35,8 +37,8 @@
   <!--FORMULAIRE ADMINISTRATION-->
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
-      <form id="admin" class="form-group" style="display:none">
-        <h3 id="title">Conexion Administration</h3>
+      <form id="admin"  method="POST" class="form-group" style="display:none">
+        <h3 id="title">Connexion Administration</h3>
         Mail : <input type="mail" name="mail" required class="form-control"><br/>
         Mot de passe : <input type="password" name="password" required class="form-control"><br/>
         <input type="submit" value="Login" class="btn btn-success">
