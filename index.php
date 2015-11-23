@@ -2,12 +2,6 @@
   // require composer autoload (load all my libraries)
   require 'vendor/autoload.php';
 
-  // require database configuration (with Eloquent)
-  require 'db/config.php';
-  
-
-  // require my models
-  require 'models/Book.php';
   session_start();
 
   // Slim initialisation
