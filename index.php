@@ -27,13 +27,13 @@
 
   // GET /
   $app->get('/', function() use ($app) {
-
-  })
+  $app->render('index.php');
+  });
 
   // GET /books/:book_id
   $app->get('/books/:book_id', function ($book_id) use ($app) {
-    
-  })
+
+  });
 
   // always need to be at the bottom of this file !
   $app->run();
