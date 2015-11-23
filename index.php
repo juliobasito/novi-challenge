@@ -1,31 +1,53 @@
 <?php
+  // require composer autoload (load all my libraries)
+  require 'vendor/autoload.php';
 
-session_start();
+  // require database configuration (with Eloquent)
+  require 'db/config.php';
+  
 
+  // require my models
+  require 'models/Book.php';
+  session_start();
 
-$app = new \Slim\Slim(array(
+  // Slim initialisation
+  $app = new \Slim\Slim(array(
     'view' => '\Slim\LayoutView', // I activate slim layout component
     'layout' => 'layouts/main.php' // I define my main layout
-    ));
+  ));
+
+  // hook before.router, now $app is accessible in my views
+  $app->hook('slim.before.router', function () use ($app) {
+    $app->view()->setData('app', $app);
+  });
 
   // views initiatilisation
-$app->hook('slim.before.router', function () use ($app) {
-  $app->view()->setData('app', $app);
-});
+  $view = $app->view();
+  $view->setTemplatesDirectory('views');
 
-$app->hook('verification.admin', function () use ($app) {
-  if( isset($_SESSION['admin']) && $_SESSION['admin'] )
-  {
-    return true;
-  }
-  else
-  {
-    $app->redirect($app->urlFor('accueil'));
-  }
-});
+  // GET /
+  $app->get('/', function() use ($app) {
+    // $app->flashNow('success', "C'est très bien !");
+    $app->flashNow('error', "C'est très mal !");
+    $books = Book::all();
+    $root_path = $app->urlFor('root');
+    $app->render( 
+      'books/index.php', 
+      array( 
+        "books" => $books,
+        "root_path" => $root_path
+      ) 
+    );
+  })->name('root'); // named route so I can use with "urlFor" method
 
+  // GET /books/:book_id
+  $app->get('/books/:book_id', function ($book_id) use ($app) {
+    $book = Book::getBook($book_id);
+    $app->render(
+      'books/show.php', 
+      array("book" => $book)
+    );
+  })->name('book'); // named route so I can use with "urlFor" method
 
-   $app->run();
-
-
-   ?>
+  // always need to be at the bottom of this file !
+  $app->run();

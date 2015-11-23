@@ -1,13 +1,7 @@
 {
-    "name": "YoshiYo/seeit",
-    "authors": [
-        {
-            "name": "Guillaume Forgue",
-            "email": "guillaume.forgue@gmail.com"
-        }
-    ],
     "require": {
-        "slim/slim": "~2.4",
-        "petebrowne/slim-layout-view": "~0.3"
+        "slim/slim": "2.*",
+        "petebrowne/slim-layout-view": "0.3.*",
+        "illuminate/database": "*"
     }
 }
