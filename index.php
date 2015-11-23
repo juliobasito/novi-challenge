@@ -27,27 +27,13 @@
 
   // GET /
   $app->get('/', function() use ($app) {
-    // $app->flashNow('success', "C'est très bien !");
-    $app->flashNow('error', "C'est très mal !");
-    $books = Book::all();
-    $root_path = $app->urlFor('root');
-    $app->render( 
-      'books/index.php', 
-      array( 
-        "books" => $books,
-        "root_path" => $root_path
-      ) 
-    );
-  })->name('root'); // named route so I can use with "urlFor" method
+
+  })
 
   // GET /books/:book_id
   $app->get('/books/:book_id', function ($book_id) use ($app) {
-    $book = Book::getBook($book_id);
-    $app->render(
-      'books/show.php', 
-      array("book" => $book)
-    );
-  })->name('book'); // named route so I can use with "urlFor" method
+    
+  })
 
   // always need to be at the bottom of this file !
   $app->run();
