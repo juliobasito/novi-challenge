@@ -18,26 +18,21 @@ class Class {
 static function getClassById($classId) {
 	$bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
-	$sql='SELECT classId, className
+	$sql2='SELECT classId, className
         FROM class
-        WHERE classid = "'.$classId.'"
-        AND password = "'.$_POST['password'].'"';
-        $result = $bdd->prepare($sql);
-        $columns = $result->execute();
-        $columns = $result->fetch();
-        $nb = $columns['nb'];
-        if ($nb == 1) {
-          session_start();
-          $_SESSION['userid'] = $columns['userid'];
-          $_SESSION['mail'] = $columns['mail'];
-          $_SESSION['classid'] = $columns['classid'];
-          return true;
-        }
-    return array(
-      $_SESSION['utilisateur'],
-      $_SESSION['id']
+        WHERE classid = :classid ';
+        $sql = $db->prepare($sql2);
+        $sql->bindParam(':classid', $classid);
+        $sql->execute();
+        $class=[];
+			$fetch = $sql->fetch();
+				$class = array(
+					"class"=> array(
+						"classId" => $fetch["classId"],
+						"className" => $fetch["className"],
+						));
 
-      );
+			return $class; 
   }
 
 }
