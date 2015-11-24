@@ -15,6 +15,9 @@ class Task {
   }
 }
 
+public static function addTaskTeacher(){
+
+}
 }
 ?>
 

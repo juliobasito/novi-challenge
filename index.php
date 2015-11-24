@@ -6,6 +6,7 @@
     // require my models
 require_once 'models/User.php';
 require_once 'models/Class.php';
+require_once 'models/Task.php';
 
   session_start();
 
@@ -54,20 +55,22 @@ require_once 'models/Class.php';
  }
 })->name('logTeacher');
 
+
  $app->post('/addTaskTeacher', function () use ($app) {
-  Task::addTaskTeacher($_POST['teacherId'], $_POST['classId'], $_POST['dateStart']), $_POST['dateEnd'];
- }
+  Task::addTaskTeacher($_POST['teacherId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd']);
 })->name('logTeacher');
 
   // GET /
 $app->get('/profil', function () use ($app) {
- // $profil = User::getUser($_SESSION['userId']);
-  $app->render('profil/index.php');
+  $profil = User::getUserById($_SESSION['userid']);
+  $class = StudentClass::getClassById($profil['classId']);
+  $task = Task::getTaskByClassId($profil['classId']);
+  var_dump($task);
+  $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class) );
   })->name('profil');
 
 $app->get('/getAllClass', function () use ($app) {
-  $class = Class::getAllClass();
-  
+ 
   $app->render('profil/index.php');
   })->name('profil');
 
@@ -76,8 +79,7 @@ $app->get('/indexTeacher', function () use ($app) {
   })->name('indexTeacher');
 
 $app->get('/formAddTaskTeacher', function () use ($app) {
- // $profil = User::getUser($_SESSION['userId']);
-  $app->render('teacher/formAddTaskTeacher.php');
+  $class = StudentClass::getAllClass();
+  $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class)); 
   })->name('formAddTaskTeacher');
-  // always need to be at the bottom of this file !
   $app->run();
