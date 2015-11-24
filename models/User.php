@@ -80,7 +80,7 @@ static function getUserById($userId) {
   $sql2='SELECT userId, mail, classId
         FROM user
         WHERE userId = :userId ';
-        $sql = $db->prepare($sql2);
+        $sql = $bdd->prepare($sql2);
         $sql->bindParam(':userId', $userId);
         $sql->execute();
         $user=[];
