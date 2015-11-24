@@ -47,21 +47,17 @@ require_once 'models/Class.php';
   session_destroy();
   $isconnected = User::connect_teacher($_POST['mail'], $_POST['password']);
   if ($isconnected){
-    $app->redirect($app->urlFor('profil'));
+    $app->redirect($app->urlFor('indexTeacher'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
  }
 })->name('logTeacher');
 
-
-  // GET /
-$app->get('/profil/:user_id', function ($user_id) use ($app) {
-  $profil = User::getUserById($_SESSION['userid']);
-  $class = StudentClass::getClassById($profil['classId']);
-  var_dump($class);
-  $app->render('profil/index.php');
-  })->name('profil');
+ $app->post('/addTaskTeacher', function () use ($app) {
+  Task::addTaskTeacher($_POST['teacherId'], $_POST['classId'], $_POST['dateStart']), $_POST['dateEnd'];
+ }
+})->name('logTeacher');
 
   // GET /
 $app->get('/profil', function () use ($app) {
@@ -69,12 +65,19 @@ $app->get('/profil', function () use ($app) {
   $app->render('profil/index.php');
   })->name('profil');
 
+$app->get('/getAllClass', function () use ($app) {
+  $class = Class::getAllClass();
+  
+  $app->render('profil/index.php');
+  })->name('profil');
 
+$app->get('/indexTeacher', function () use ($app) {
+  $app->render('teacher/index.php');
+  })->name('indexTeacher');
 
-  // GET /books/:book_id
-  $app->get('/books/:book_id', function ($book_id) use ($app) {
-
-  });
-
+$app->get('/formAddTaskTeacher', function () use ($app) {
+ // $profil = User::getUser($_SESSION['userId']);
+  $app->render('teacher/formAddTaskTeacher.php');
+  })->name('formAddTaskTeacher');
   // always need to be at the bottom of this file !
   $app->run();

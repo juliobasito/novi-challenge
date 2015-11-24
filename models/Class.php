@@ -34,7 +34,13 @@ static function getClassById($classId) {
 
 			return $class; 
   }
-
+  public static function getAllClass()
+  {
+    $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+    $sql =$bdd->prepare('SELECT * FROM class');
+    $sql->execute();
+    return $sql;
+  }
 }
 ?>
 
