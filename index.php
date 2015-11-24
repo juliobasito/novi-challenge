@@ -62,7 +62,13 @@ $app->get('/profil', function () use ($app) {
   $profil = User::getUserById($_SESSION['userid']);
   $class = StudentClass::getClassById($profil['classId']);
   $task = Task::getTaskByClassId($profil['classId']);
-  $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class, 'task'=>$task) );
+
+  $prenom= explode(".", $_SESSION['mail']);
+  $rest = $prenom[1];
+  $nom = explode("@", $rest);
+  $profilName = ucfirst($prenom[0])." ".strtoupper($nom[0]);
+
+  $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class, 'task'=>$task, 'profilName'=>$profilName) );
   })->name('profil');
 
 
