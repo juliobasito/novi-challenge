@@ -47,7 +47,7 @@ require_once 'models/Class.php';
   // GET /
 $app->get('/profil/:user_id', function ($user_id) use ($app) {
   $profil = User::getUserById($_SESSION['userid']);
-  $class = Class::getClassById($profil['classId']);
+  $class = StudentClass::getClassById($profil['classId']);
   var_dump($class);
   $app->render('profil/index.php');
   })->name('profil');
