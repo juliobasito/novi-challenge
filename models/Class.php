@@ -1,5 +1,5 @@
 <?php
-class Class {
+class StudentClass {
 
  public function db_connect() {
 
