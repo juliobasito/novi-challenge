@@ -6,6 +6,7 @@
     // require my models
 require_once 'models/User.php';
 require_once 'models/Class.php';
+require_once 'models/Task.php';
 
   session_start();
 
@@ -59,6 +60,8 @@ require_once 'models/Class.php';
 $app->get('/profil', function () use ($app) {
   $profil = User::getUserById($_SESSION['userid']);
   $class = StudentClass::getClassById($profil['classId']);
+  $task = Task::getTaskByClassId($profil['classId']);
+  var_dump($task);
   $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class) );
   })->name('profil');
 
