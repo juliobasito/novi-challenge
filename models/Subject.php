@@ -16,47 +16,25 @@ class Subject {
 }
 
 
-static function getTaskByClassId($classId) {
+static function getSubjectById($subjectId) {
   $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
-  $sql2='SELECT taskId, subjectId, classId, dateStart, dateEnd
-        FROM task
-        WHERE classId = :classId ';
+  $sql2='SELECT subjectId, subjectName, teacherId
+        FROM subject
+        WHERE subjectId = :subjectId ';
         $sql = $bdd->prepare($sql2);
-        $sql->bindParam(':classId', $classId);
+        $sql->bindParam(':subjectId', $subjectId);
         $sql->execute();
-        $user=[];
-      
-      $compteur = 0;
-			while($fetch = $sql->fetch())
-			{
-				 if($compteur==0)
-			 {
-				$task = array(
-					"task".$compteur=> array(
-						"taskId" => $fetch["taskId"],
+        $subject=[];
+			$fetch = $sql->fetch();
+				$subject = array(
 						"subjectId" => $fetch["subjectId"],
-						"classId" => $fetch["classId"],
-						"dateStart" => $fetch["dateStart"],
-						"dateEnd" => $fetch["dateEnd"],
-						));
-				}
-				else
-				{
-					$task = array_merge($task, array(
-					$task = array(
-					"task".$compteur=> array(
-						"taskId" => $fetch["taskId"],
-						"subjectId" => $fetch["subjectId"],
-						"classId" => $fetch["classId"],
-						"dateStart" => $fetch["dateStart"],
-						"dateEnd" => $fetch["dateEnd"]
-						))));
-				}
-			$compteur++;
-			}
+						"subjectName" => $fetch["subjectName"],
+						"teacherId" => $fetch["teacherId"],
+						);
+			
         	
-			return $task;
+			return $subject;
 
   }
 

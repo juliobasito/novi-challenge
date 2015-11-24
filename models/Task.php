@@ -19,14 +19,15 @@ class Task {
 static function getTaskByClassId($classId) {
   $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
-  $sql2='SELECT taskId, subjectId, classId, dateStart, dateEnd
-        FROM task
+  $sql2='SELECT t.taskId TASKID, t.subjectId SUBJECTID, t.classId CLASSID, t.dateStart DATESTART, t.dateEnd DATEEND, s.subjectName SUBJECTNAME, s.teacherId TEACHERID
+        FROM task t
+        JOIN subject s 
+        ON s.subjectId = t.subjectId
         WHERE classId = :classId ';
         $sql = $bdd->prepare($sql2);
         $sql->bindParam(':classId', $classId);
         $sql->execute();
-        $user=[];
-      
+
       $compteur = 0;
 			while($fetch = $sql->fetch())
 			{
@@ -34,11 +35,13 @@ static function getTaskByClassId($classId) {
 			 {
 				$task = array(
 					"task".$compteur=> array(
-						"taskId" => $fetch["taskId"],
-						"subjectId" => $fetch["subjectId"],
-						"classId" => $fetch["classId"],
-						"dateStart" => $fetch["dateStart"],
-						"dateEnd" => $fetch["dateEnd"],
+						"taskId" => $fetch["TASKID"],
+						"subjectId" => $fetch["SUBJECTID"],
+						"classId" => $fetch["CLASSID"],
+						"dateStart" => $fetch["DATESTART"],
+						"dateEnd" => $fetch["DATEEND"],
+						"subjectName" => $fetch["SUBJECTNAME"],
+						"teacherId" => $fetch["TEACHERID"],
 						));
 				}
 				else
@@ -46,11 +49,13 @@ static function getTaskByClassId($classId) {
 					$task = array_merge($task, array(
 					$task = array(
 					"task".$compteur=> array(
-						"taskId" => $fetch["taskId"],
-						"subjectId" => $fetch["subjectId"],
-						"classId" => $fetch["classId"],
-						"dateStart" => $fetch["dateStart"],
-						"dateEnd" => $fetch["dateEnd"]
+						"taskId" => $fetch["TASKID"],
+						"subjectId" => $fetch["SUBJECTID"],
+						"classId" => $fetch["CLASSID"],
+						"dateStart" => $fetch["DATESTART"],
+						"dateEnd" => $fetch["DATEEND"],
+						"subjectName" => $fetch["SUBJECTNAME"],
+						"teacherId" => $fetch["TEACHERID"],
 						))));
 				}
 			$compteur++;
