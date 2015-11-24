@@ -4,7 +4,8 @@
 
 
     // require my models
-require 'models/User.php';
+require_once 'models/User.php';
+require_once 'models/Class.php';
 
   session_start();
 
@@ -44,7 +45,16 @@ require 'models/User.php';
 
 
   // GET /
-  $app->get('/profil', function() use ($app) {
+$app->get('/profil/:user_id', function ($user_id) use ($app) {
+  $profil = User::getUserById($_SESSION['userid']);
+  $class = Class::getClassById($profil['classId']);
+  var_dump($class);
+  $app->render('profil/index.php');
+  })->name('profil');
+
+  // GET /
+$app->get('/profil', function () use ($app) {
+ // $profil = User::getUser($_SESSION['userId']);
   $app->render('profil/index.php');
   })->name('profil');
 

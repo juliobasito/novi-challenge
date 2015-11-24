@@ -53,6 +53,31 @@ static function connect_user($mail, $password) {
       );
   }
 
+
+static function getUserById($userId) {
+  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+
+  $sql2='SELECT userId, mail, classId
+        FROM user
+        WHERE userId = :userId ';
+        $sql = $db->prepare($sql2);
+        $sql->bindParam(':userId', $userId);
+        $sql->execute();
+        $user=[];
+      $fetch = $sql->fetch();
+        $user = array(
+          "user"=> array(
+            "userId" => $fetch["userId"],
+            "mail" => $fetch["mail"],
+            "classId" => $fetch["classId"],
+            ));
+
+      return $user; 
+  }
+
+
+
+
 }
 ?>
 
