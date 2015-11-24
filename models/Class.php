@@ -16,7 +16,7 @@ class StudentClass {
 }
 
 static function getClassById($classId) {
-	  $bdd = new PDO('mysql:host=localhost;dbname=novy','root','');
+	  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
 	$sql2='SELECT classId, className
         FROM class
@@ -27,10 +27,10 @@ static function getClassById($classId) {
         $class=[];
 			$fetch = $sql->fetch();
 				$class = array(
-					"class"=> array(
+					
 						"classId" => $fetch["classId"],
 						"className" => $fetch["className"],
-						));
+						);
 
 			return $class; 
   }
