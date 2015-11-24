@@ -6,6 +6,8 @@
     // require my models
 require_once 'models/User.php';
 require_once 'models/Class.php';
+require_once 'models/Task.php';
+require_once 'models/Subject.php';
 
   session_start();
 
@@ -56,17 +58,17 @@ require_once 'models/Class.php';
 
 
   // GET /
-$app->get('/profil/:user_id', function ($user_id) use ($app) {
+$app->get('/profil', function () use ($app) {
   $profil = User::getUserById($_SESSION['userid']);
   $class = StudentClass::getClassById($profil['classId']);
-  var_dump($class);
-  $app->render('profil/index.php');
-  })->name('profil');
+  $task = Task::getTaskByClassId($profil['classId']);
 
-  // GET /
-$app->get('/profil', function () use ($app) {
- // $profil = User::getUser($_SESSION['userId']);
-  $app->render('profil/index.php');
+  $prenom= explode(".", $_SESSION['mail']);
+  $rest = $prenom[1];
+  $nom = explode("@", $rest);
+  $profilName = ucfirst($prenom[0])." ".strtoupper($nom[0]);
+
+  $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class, 'task'=>$task, 'profilName'=>$profilName) );
   })->name('profil');
 
 
