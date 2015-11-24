@@ -86,11 +86,11 @@ static function getUserById($userId) {
         $user=[];
       $fetch = $sql->fetch();
         $user = array(
-          "user"=> array(
+         
             "userId" => $fetch["userId"],
             "mail" => $fetch["mail"],
             "classId" => $fetch["classId"],
-            ));
+            );
 
       return $user; 
   }
