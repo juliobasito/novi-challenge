@@ -67,8 +67,8 @@
         $("#teacher").hide();
         $("#admin").hide();
         
-        $("#btTeacher").hide();
-        $("#btUser").show();
+        $("#btTeacher").show();
+        $("#btUser").hide();
         $("#btAdmin").show();
     });
     
@@ -78,9 +78,9 @@
         $("#teacher").hide();
         $("#admin").show();
         
-        $("#btTeacher").hide();
+        $("#btTeacher").show();
         $("#btUser").show();
-        $("#btAdmin").show();
+        $("#btAdmin").hide();
     });
         
     });

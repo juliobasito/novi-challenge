@@ -5,7 +5,7 @@ class User {
 
    try
    {
-    $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+    $bdd = new PDO('mysql:host=localhost;dbname=novy','root','');
     $bdd->query('SET NAMES utf8');
   }
 
@@ -18,7 +18,7 @@ class User {
 
 
 static function connect_user($mail, $password) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+  $bdd = new PDO('mysql:host=localhost;dbname=novy','root','');
 
     if (isset($_POST["mail"]) && isset($_POST["password"])){
       if ($_POST['mail']!="" && $_POST['password']!="") {
@@ -46,7 +46,7 @@ static function connect_user($mail, $password) {
   }
 
   static function connect_teacher($mail, $password) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+  $bdd = new PDO('mysql:host=localhost;dbname=novy','root','');
 
    $sql = $bdd->prepare('SELECT * FROM teacher WHERE mail = :mail AND password = :password');
    $flag = array('mail' => $mail,
@@ -80,17 +80,17 @@ static function getUserById($userId) {
   $sql2='SELECT userId, mail, classId
         FROM user
         WHERE userId = :userId ';
-        $sql = $bdd->prepare($sql2);
+        $sql = $db->prepare($sql2);
         $sql->bindParam(':userId', $userId);
         $sql->execute();
         $user=[];
       $fetch = $sql->fetch();
         $user = array(
-         
+          "user"=> array(
             "userId" => $fetch["userId"],
             "mail" => $fetch["mail"],
             "classId" => $fetch["classId"],
-            );
+            ));
 
       return $user; 
   }
