@@ -31,7 +31,7 @@ require 'models/User.php';
 
 
 // POST de connexion
-  $app->post('/', function () use ($app) {
+  $app->post('/logUser', function () use ($app) {
   session_destroy();
   $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
   if ($isconnected){
@@ -40,7 +40,18 @@ require 'models/User.php';
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
  }
-})->name('signIn');
+})->name('logUser');
+
+  $app->post('/logTeacher', function () use ($app) {
+  session_destroy();
+  $isconnected = User::connect_teacher($_POST['mail'], $_POST['password']);
+  if ($isconnected){
+    $app->redirect($app->urlFor('profil'));
+  }
+  else{
+  $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+ }
+})->name('logTeacher');
 
 
   // GET /
