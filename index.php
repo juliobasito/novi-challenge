@@ -61,7 +61,7 @@ $app->get('/profil/:user_id', function ($user_id) use ($app) {
   $class = StudentClass::getClassById($profil['classId']);
   var_dump($class);
   $app->render('profil/index.php');
-  })->name('profil');
+  })->name('profilparUser');
 
   // GET /
 $app->get('/profil', function () use ($app) {
