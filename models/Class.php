@@ -22,12 +22,11 @@ static function getClassById($classId) {
         FROM class
         WHERE classid = :classid ';
         $sql = $bdd->prepare($sql2);
-        $sql->bindParam(':classid', $classid);
+        $sql->bindParam(':classid', $classId);
         $sql->execute();
         $class=[];
 			$fetch = $sql->fetch();
 				$class = array(
-					
 						"classId" => $fetch["classId"],
 						"className" => $fetch["className"],
 						);
