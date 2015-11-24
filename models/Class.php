@@ -1,5 +1,5 @@
 <?php
-class User {
+class Class {
 
  public function db_connect() {
 
@@ -15,17 +15,13 @@ class User {
   }
 }
 
+static function getClassById($classId) {
+	$bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
-
-static function connect_user($mail, $password) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
-
-    if (isset($_POST["mail"]) && isset($_POST["password"])){
-      if ($_POST['mail']!="" && $_POST['password']!="") {
-        $sql='SELECT COUNT(*) AS nb, userid, mail, classid
-        FROM user
-        WHERE mail = "'.$mail.'"
-        AND password = "'.$password.'"';
+	$sql='SELECT classId, className
+        FROM class
+        WHERE classid = "'.$classId.'"
+        AND password = "'.$_POST['password'].'"';
         $result = $bdd->prepare($sql);
         $columns = $result->execute();
         $columns = $result->fetch();
@@ -36,16 +32,7 @@ static function connect_user($mail, $password) {
           $_SESSION['mail'] = $columns['mail'];
           $_SESSION['classid'] = $columns['classid'];
           return true;
-        }else{
-          return false;
         }
-      }
-      return false;
-    }
-    return false;
-  }
-
-  static function getUser() {
     return array(
       $_SESSION['utilisateur'],
       $_SESSION['id']
