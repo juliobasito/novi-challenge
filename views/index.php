@@ -1,12 +1,11 @@
 
-
 <div class="container">
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
       <br/>
-      <button id="btUser" type="button" class="btn btn-info" onclick="user()" style="display:none">Etudiant</button>
-      <button id="btTeacher" type="button" class="btn btn-info" onclick="teacher()">Formateur</button>
-      <button id="btAdmin" type="button" class="btn btn-info" onclick="admin()">Administration</button>
+      <button id="btUser" type="button" class="btn btn-info"style="display:none">Etudiant</button>
+      <button id="btTeacher" type="button" class="btn btn-info">Formateur</button>
+      <button id="btAdmin" type="button" class="btn btn-info">Administration</button>
     </div>
   </div>
 
@@ -47,38 +46,42 @@
   </div>
 </div>
 
-<script type="text/javascript">
-
-  function user()
-  {
-    document.getElementById('user').style.display="block";
-    document.getElementById('teacher').style.display="none";
-    document.getElementById('admin').style.display="none";
-
-    document.getElementById('btUser').style.display="none";
-    document.getElementById('btTeacher').style.display="inline-block";
-    document.getElementById('btAdmin').style.display="inline-block";
-  }
-
-  function teacher()
-  {
-    document.getElementById('user').style.display="none";
-    document.getElementById('teacher').style.display="block";
-    document.getElementById('admin').style.display="none";
-
-    document.getElementById('btUser').style.display="inline-block";
-    document.getElementById('btTeacher').style.display="none";
-    document.getElementById('btAdmin').style.display="inline-block";
-  }
-
-  function admin()
-  {
-    document.getElementById('user').style.display="none";
-    document.getElementById('teacher').style.display="none";
-    document.getElementById('admin').style.display="block";
-
-    document.getElementById('btUser').style.display="inline-block";
-    document.getElementById('btTeacher').style.display="inline-block";
-    document.getElementById('btAdmin').style.display="none";
-  }
+<script>
+    $(document).ready(function(){
+    // Le code jQuery ici !    
+    $("#btTeacher").click(function()
+    {
+        $("#user").hide();
+        $("#teacher").show();
+        $("#admin").hide();
+        
+        
+        $("#btTeacher").hide();
+        $("#btUser").show();
+        $("#btAdmin").show();
+    });
+        
+    $("#btUser").click(function()
+    {
+        $("#user").show();
+        $("#teacher").hide();
+        $("#admin").hide();
+        
+        $("#btTeacher").show();
+        $("#btUser").hide();
+        $("#btAdmin").show();
+    });
+    
+    $("#btAdmin").click(function()
+    {
+        $("#user").hide();
+        $("#teacher").hide();
+        $("#admin").show();
+        
+        $("#btTeacher").show();
+        $("#btUser").show();
+        $("#btAdmin").hide();
+    });
+        
+    });
 </script>
