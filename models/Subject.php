@@ -1,5 +1,5 @@
 <?php
-class Task {
+class Subject {
 
  public function db_connect() {
 

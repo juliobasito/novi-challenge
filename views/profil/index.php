@@ -3,7 +3,7 @@ $prenom= explode(".", $_SESSION['mail']);
 $rest = $prenom[1];
 $nom = explode("@", $rest);
 echo "Bienvenue ".ucfirst($prenom[0])." ".strtoupper($nom[0])." élève de ".$class['className'];
-
+var_dump($tache);
 var_dump($_SESSION);
 ?>
 <div class="container">
@@ -26,12 +26,16 @@ $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.m
       right: 'month,agendaWeek,agendaDay'
     },
     editable: true,
+	<?php foreach($events as $key=>$events)
+	{
+	?>
     events: [
       {
-        title: 'All Day Event',
-        start: new Date(y, m, 1)
+        title: <?php //echo $events["title"]?>,
+        start: <?php //echo $events["date"] ?>
       }
     ]
+	<?php } ?>
   });
 })
 </script>
