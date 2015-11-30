@@ -1,24 +1,11 @@
 <?php
 class User {
 
- public function db_connect() {
-
-   try
-   {
-    $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
-    $bdd->query('SET NAMES utf8');
-  }
-
-  catch (Exception $e)
-  {
-    die('Erreur : ' .$e->getMessage());
-  }
-}
 
 
 
 static function connect_user($mail, $password) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+  $db = bdd::Conn();
 
     if (isset($_POST["mail"]) && isset($_POST["password"])){
       if ($_POST['mail']!="" && $_POST['password']!="") {
@@ -26,7 +13,7 @@ static function connect_user($mail, $password) {
         FROM user
         WHERE mail = "'.$mail.'"
         AND password = "'.$password.'"';
-        $result = $bdd->prepare($sql);
+        $result = $db->prepare($sql);
         $columns = $result->execute();
         $columns = $result->fetch();
         $nb = $columns['nb'];
@@ -46,9 +33,9 @@ static function connect_user($mail, $password) {
   }
 
   static function connect_teacher($mail, $password) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+  $db = bdd::Conn();
 
-   $sql = $bdd->prepare('SELECT * FROM teacher WHERE mail = :mail AND password = :password');
+   $sql = $db->prepare('SELECT * FROM teacher WHERE mail = :mail AND password = :password');
    $flag = array('mail' => $mail,
    'password' => $password);
    $sql->execute($flag);
@@ -75,22 +62,22 @@ static function connect_user($mail, $password) {
 
 
 static function getUserById($userId) {
-  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+  $db = bdd::Conn();
 
   $sql2='SELECT userId, mail, classId
         FROM user
         WHERE userId = :userId ';
-        $sql = $bdd->prepare($sql2);
+        $sql = $db->prepare($sql2);
         $sql->bindParam(':userId', $userId);
         $sql->execute();
         $user=[];
       $fetch = $sql->fetch();
         $user = array(
-         
+          "user"=> array(
             "userId" => $fetch["userId"],
             "mail" => $fetch["mail"],
             "classId" => $fetch["classId"],
-            );
+            ));
 
       return $user; 
   }

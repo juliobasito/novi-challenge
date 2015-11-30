@@ -1,24 +1,8 @@
 <?php
+
+include("bdd.php");
 class Task {
-
- public function db_connect() {
-
-   try
-   {
-    $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
-    $bdd->query('SET NAMES utf8');
-  }
-
-  catch (Exception $e)
-  {
-    die('Erreur : ' .$e->getMessage());
-  }
-}
-
-public static function addTaskTeacher(){
-
-
-}
+  
 static function getTaskByClassId($classId) {
   $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
 
@@ -30,6 +14,7 @@ static function getTaskByClassId($classId) {
         $sql = $bdd->prepare($sql2);
         $sql->bindParam(':classId', $classId);
         $sql->execute();
+        $task = 0;
 
       $compteur = 0;
 			while($fetch = $sql->fetch())
@@ -67,7 +52,13 @@ static function getTaskByClassId($classId) {
 			return $task;
 
   }
-
+ 	public static function addTaskTeacher($subjectId, $classId, $dateStart, $dateEnd)
+ 	{
+ 		$bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+ 		$sql = $bdd->prepare('INSERT INTO task (subjectId, classId, dateStart, dateEnd) VALUES (:subjectId, :classId, :dateStart, :dateEnd)');
+ 		$flag = array('subjectId' => $subjectId , 'classId' => $classId, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd) ;
+ 		$sql->execute($flag);
+ 	}
 }
 ?>
 
