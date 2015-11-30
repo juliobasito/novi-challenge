@@ -3,8 +3,9 @@
 		<form>
 			<select>
 				<?php
+				var_dump($class);
 				while ($donnee = $class->fetch()) {
-				echo '<option>'.$class['className'].'</option>';	
+				echo $donnee['className'];	
 				}
 				?>
 			</select>
