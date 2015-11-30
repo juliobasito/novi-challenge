@@ -6,6 +6,7 @@
     // require my models
 require_once 'models/User.php';
 require_once 'models/Class.php';
+require_once 'models/Task.php';
 
   session_start();
 
@@ -27,7 +28,7 @@ require_once 'models/Class.php';
   // GET /
   $app->get('/', function() use ($app) {
   $app->render('index.php');
-  });
+  })->name('index');
 
 
 
@@ -35,12 +36,13 @@ require_once 'models/Class.php';
   $app->post('/logUser', function () use ($app) {
   session_destroy();
   $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
-  $tache = Task::getTaskByClassId($_SESSION["classid"]);
   if ($isconnected){
+	$tache = Task::getTaskByClassId($_SESSION["classid"]);
     $app->redirect($app->urlFor('profil', array('tache'=>$tache)));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+  $app->redirect('index');
  }
 })->name('logUser');
 
@@ -56,24 +58,22 @@ require_once 'models/Class.php';
 })->name('logTeacher');
 
 
-<<<<<<< HEAD
- // GET /
-$app->get('/profil', function () use ($app) {
-=======
   // GET /
 $app->get('/profil/:user_id', function ($user_id) use ($app) {
->>>>>>> ef341cb76f6df0808822f068a5822c324c1d6abc
   $profil = User::getUserById($_SESSION['userid']);
-  $class = StudentClass::getClassById($profil['classId']);
+  $class = StudentClass::getClassById($profil['user']['classId']);
+  $tache = Task::getTaskByClassId($profil['user']['classId']);
   var_dump($class);
-  $app->render('profil/index.php');
+  $app->render('profil/index.php', array('profil'=>$profil, 'class'=>$class, 'tache' => $tache));
   })->name('profil');
 
   // GET /
 $app->get('/profil', function () use ($app) {
  // $profil = User::getUser($_SESSION['userId']);
+ $profil = User::getUserById($_SESSION['userid']);
+  $class = StudentClass::getClassById($profil['user']['classId']);
   $app->render('profil/index.php');
-  })->name('profil');
+  })->name('toutprofil');
 
 
 

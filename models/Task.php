@@ -1,21 +1,20 @@
 <?php
+
+include("bdd.php");
 class Task {
-
- public function db_connect() {
-
-   try
-   {
-    $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
-    $bdd->query('SET NAMES utf8');
-  }
-
-  catch (Exception $e)
+  
+  public static function getTaskByClassId($id)
   {
-    die('Erreur : ' .$e->getMessage());
+	$db = bdd::Conn();
+	$sql = $db->prepare("SELECT * FROM Task WHERE taskId =:id");
+	$sql->bindParam(":id",$id);
+	$sql->execute();
+	$columns = $sql->fetch();
+	return $columns;
   }
 }
 
-}
+
 ?>
 
 
