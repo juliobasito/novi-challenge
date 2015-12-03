@@ -52,13 +52,13 @@ static function connect_user($mail, $password) {
    return false;
   }
 
-  static function getUser() {
+  /*static function getUser() {
     return array(
       $_SESSION['utilisateur'],
       $_SESSION['id']
 
       );
-  }
+  }*/
 
 
 static function getUserById($userId) {

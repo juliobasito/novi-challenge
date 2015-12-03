@@ -39,11 +39,11 @@ require_once 'models/subject.php';
   $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
   if ($isconnected){
 	$tache = Task::getTaskByClassId($_SESSION["classid"]);
-    $app->redirect($app->urlFor('profil', array('tache'=>$tache)));
+    $app->redirect($app->urlFor('profil'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
-  $app->redirect('index');
+  $app->redirect($app->urlFor('index'));
  }
 })->name('logUser');
 
@@ -90,6 +90,12 @@ $app->post('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
   $subject = Subject::getAllSubjectTeacher($teacherId);
   Task::addTaskTeacher($_POST['subjectId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd']);
   $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
+  });
+  
+ $app->get('/calendrier', function () use ($app) {
+ $profil = User::getUserById($_SESSION['userid']);
+ $task = Task::getTaskByClassId($_SESSION["classid"]);
+  $app->render('calendrier/calendrier.php', array('profil' =>$profil, 'task'=>$task)); 
   });
 
 $app->get('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
