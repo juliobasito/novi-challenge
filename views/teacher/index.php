@@ -9,6 +9,7 @@
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/mycss.css" rel="stylesheet">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,17 +30,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">NOVI</a>
+            <a class="navbar-brand navOnglet" href="#">NOVI</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="formAddTaskTeacher/<?php echo $_SESSION['teacherId'];?>">Ajouter une tache</a></li>
+              <li><a class="navOnglet" href="formAddTaskTeacher">Ajouter une tache</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Déconnexion</a></li>
+              <li><a href="#" class="navOnglet">Déconnexion</a></li>
 
             </ul>
           </div><!-- /.navbar-collapse -->

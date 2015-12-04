@@ -85,10 +85,10 @@ $app->get('/indexTeacher', function () use ($app) {
   $app->render('teacher/index.php');
   })->name('indexTeacher');
 
-$app->post('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
+$app->post('/formAddTaskTeacher', function () use ($app) {
   $class = StudentClass::getAllClass();
-  $subject = Subject::getAllSubjectTeacher($teacherId);
-  Task::addTaskTeacher($_POST['subjectId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd']);
+  $subject = Subject::getAllSubjectTeacher($_SESSION['teacherId']);
+  Task::addTaskTeacher($_POST['subjectId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd'], $_POST['name']);
   $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
   });
   
@@ -98,9 +98,9 @@ $app->post('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
   $app->render('calendrier/calendrier.php', array('profil' =>$profil, 'task'=>$task)); 
   })->name('calendrier');
 
-$app->get('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
+$app->get('/formAddTaskTeacher', function () use ($app) {
   $class = StudentClass::getAllClass();
-  $subject = Subject::getAllSubjectTeacher($teacherId);
+  $subject = Subject::getAllSubjectTeacher($_SESSION['teacherId']);
   $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
   })->name('formAddTaskTeacher');
   $app->run();

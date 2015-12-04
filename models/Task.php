@@ -21,11 +21,11 @@ static function getTaskByClassId($classId) {
 			return $task;
 
   }
- 	public static function addTaskTeacher($subjectId, $classId, $dateStart, $dateEnd)
+ 	public static function addTaskTeacher($subjectId, $classId, $dateStart, $dateEnd, $name)
  	{
  		$bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
- 		$sql = $bdd->prepare('INSERT INTO task (subjectId, classId, dateStart, dateEnd) VALUES (:subjectId, :classId, :dateStart, :dateEnd)');
- 		$flag = array('subjectId' => $subjectId , 'classId' => $classId, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd) ;
+ 		$sql = $bdd->prepare('INSERT INTO task (subjectId, classId, dateStart, dateEnd, name) VALUES (:subjectId, :classId, :dateStart, :dateEnd, :name)');
+ 		$flag = array('subjectId' => $subjectId , 'classId' => $classId, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'name' => $name) ;
  		$sql->execute($flag);
  	}
 }
