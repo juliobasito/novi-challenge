@@ -1,5 +1,6 @@
 <?php
-var_dump($profil);
+var_dump($task);
+$tache = json_encode($task);
 ?>
 <style>
 .fc {
@@ -528,11 +529,13 @@ table.fc-border-separate {
 	<div id="calendar"></div>
 </div>
 
-<?php //var_dump($task) ; ?>
 
-<script>
+<script type="text/javascript">
 $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
+
+
   
+  var tab = '<?php json_encode($task, JSON_PRETTY_PRINT) ?>';
   var date = new Date();
   var d = date.getDate();
   var m = date.getMonth();
@@ -545,10 +548,6 @@ $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.m
     },
     editable: true,
     events: [
-      {
-        title: 'All Day Event',
-        start: new Date(y, m, 1)
-      },
       {
         title: 'Long Event',
         start: new Date(y, m, d-5),
