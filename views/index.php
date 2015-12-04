@@ -3,16 +3,16 @@
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
       <br/>
-      <button id="btUser" type="button" class="btn btn-info"style="display:none">Etudiant</button>
-      <button id="btTeacher" type="button" class="btn btn-info">Formateur</button>
-      <button id="btAdmin" type="button" class="btn btn-info">Administration</button>
+      <button id="btUser" type="button" class="btn btn-info onglet"style="display:none">Etudiant</button>
+      <button id="btTeacher" type="button" class="btn btn-info onglet">Formateur</button>
+      <button id="btAdmin" type="button" class="btn btn-info onglet">Administration</button>
     </div>
   </div>
 
   <!--FORMULAIRE ETUDIANT-->
   <div class="row">
     <div class="col-md-5 col-md-offset-3">
-      <form id="user"  method="POST" class="form-group" action="logUser">
+      <form id="user"  method="POST" class="form-group" action="logUser" >
         <h3 id="title">Connexion Etudiant</h3>
         Mail : <input type="mail" name="mail" required class="form-control"><br/>
         Mot de passe : <input type="password" name="password" required class="form-control"><br/>

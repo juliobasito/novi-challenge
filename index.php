@@ -39,7 +39,7 @@ require_once 'models/subject.php';
   $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
   if ($isconnected){
 	$tache = Task::getTaskByClassId($_SESSION["classid"]);
-    $app->redirect($app->urlFor('profil'));
+    $app->redirect($app->urlFor('calendrier'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
@@ -96,7 +96,7 @@ $app->post('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
  $profil = User::getUserById($_SESSION['userid']);
  $task = Task::getTaskByClassId($_SESSION["classid"]);
   $app->render('calendrier/calendrier.php', array('profil' =>$profil, 'task'=>$task)); 
-  });
+  })->name('calendrier');
 
 $app->get('/formAddTaskTeacher/:teacherId', function ($teacherId) use ($app) {
   $class = StudentClass::getAllClass();
