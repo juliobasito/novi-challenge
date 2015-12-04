@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 23 Novembre 2015 à 18:42
+-- Généré le :  Ven 04 Décembre 2015 à 11:11
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `novy`
+-- Base de données :  `novi`
 --
 
 -- --------------------------------------------------------
@@ -45,7 +45,14 @@ CREATE TABLE IF NOT EXISTS `class` (
   `className` varchar(255) NOT NULL,
   PRIMARY KEY (`classId`),
   UNIQUE KEY `className` (`className`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `class`
+--
+
+INSERT INTO `class` (`classId`, `className`) VALUES
+(1, 'B3 Dev');
 
 -- --------------------------------------------------------
 
@@ -58,7 +65,14 @@ CREATE TABLE IF NOT EXISTS `subject` (
   `subjectName` varchar(255) NOT NULL,
   `teacherId` int(11) NOT NULL,
   PRIMARY KEY (`subjectId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `subject`
+--
+
+INSERT INTO `subject` (`subjectId`, `subjectName`, `teacherId`) VALUES
+(1, 'Swift', 1);
 
 -- --------------------------------------------------------
 
@@ -68,12 +82,21 @@ CREATE TABLE IF NOT EXISTS `subject` (
 
 CREATE TABLE IF NOT EXISTS `task` (
   `taskId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
   `subjectId` int(11) NOT NULL,
   `classId` int(11) NOT NULL,
   `dateStart` date NOT NULL,
   `dateEnd` date NOT NULL,
   PRIMARY KEY (`taskId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `task`
+--
+
+INSERT INTO `task` (`taskId`, `name`, `subjectId`, `classId`, `dateStart`, `dateEnd`) VALUES
+(2, 'startup', 2, 1, '2015-12-01', '2016-01-27'),
+(3, 'swift', 1, 1, '2015-12-01', '2015-12-12');
 
 -- --------------------------------------------------------
 
@@ -87,7 +110,14 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`teacherId`),
   UNIQUE KEY `mail` (`mail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `teacher`
+--
+
+INSERT INTO `teacher` (`teacherId`, `mail`, `password`) VALUES
+(1, 'louis.charbonier@ynov.com', 'admin');
 
 -- --------------------------------------------------------
 
@@ -102,7 +132,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `classId` int(11) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `mail` (`mail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`userId`, `mail`, `password`, `classId`) VALUES
+(1, 'louis.charbonier@ynov.com', 'admin', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
