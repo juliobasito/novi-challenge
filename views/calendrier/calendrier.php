@@ -1,6 +1,4 @@
-<?php
-var_dump($profil);
-?>
+
 <style>
 .fc {
 	direction: ltr;
