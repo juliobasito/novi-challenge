@@ -7,7 +7,7 @@
 require_once 'models/User.php';
 require_once 'models/Class.php';
 require_once 'models/Task.php';
-require_once 'models/Subject.php';
+require_once 'models/subject.php';
 
   session_start();
 
@@ -29,7 +29,7 @@ require_once 'models/Subject.php';
   // GET /
   $app->get('/', function() use ($app) {
   $app->render('index.php');
-  });
+  })->name('index');
 
 
 
@@ -38,10 +38,12 @@ require_once 'models/Subject.php';
   session_destroy();
   $isconnected = User::connect_user($_POST['mail'], $_POST['password']);
   if ($isconnected){
-    $app->redirect($app->urlFor('profil'));
+	$tache = Task::getTaskByClassId($_SESSION["classid"]);
+    $app->redirect($app->urlFor('calendrier'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+  $app->redirect($app->urlFor('index'));
  }
 })->name('logUser');
 
@@ -49,34 +51,56 @@ require_once 'models/Subject.php';
   session_destroy();
   $isconnected = User::connect_teacher($_POST['mail'], $_POST['password']);
   if ($isconnected){
-    $app->redirect($app->urlFor('profil'));
+    $app->redirect($app->urlFor('indexTeacher'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
  }
 })->name('logTeacher');
 
+  // GET /
+$app->get('/profil/:user_id', function ($user_id) use ($app) {
+  $profil = User::getUserById($_SESSION['userid']);
+  $class = StudentClass::getClassById($profil['user']['classId']);
+  $tache = Task::getTaskByClassId($profil['user']['classId']);
+  var_dump($class);
+  $app->render('profil/index.php', array('profil'=>$profil, 'class'=>$class, 'tache' => $tache));
+  })->name('profil');
 
   // GET /
 $app->get('/profil', function () use ($app) {
-  $profil = User::getUserById($_SESSION['userid']);
-  $class = StudentClass::getClassById($profil['classId']);
-  $task = Task::getTaskByClassId($profil['classId']);
-
-  $prenom= explode(".", $_SESSION['mail']);
-  $rest = $prenom[1];
-  $nom = explode("@", $rest);
-  $profilName = ucfirst($prenom[0])." ".strtoupper($nom[0]);
-
-  $app->render('profil/index.php', array('profil'=>$profil,  'class' => $class, 'task'=>$task, 'profilName'=>$profilName) );
-  })->name('profil');
+ // $profil = User::getUser($_SESSION['userId']);
+ $profil = User::getUserById($_SESSION['userid']);
+  $class = StudentClass::getClassById($profil['user']['classId']);
+  $app->render('profil/index.php');
+  })->name('toutprofil');
 
 
+$app->get('/getAllClass', function () use ($app) {
+ 
+  $app->render('profil/index.php');
+  })->name('getAllClass');
 
-  // GET /books/:book_id
-  $app->get('/books/:book_id', function ($book_id) use ($app) {
+$app->get('/indexTeacher', function () use ($app) {
+  $app->render('teacher/index.php');
+  })->name('indexTeacher');
 
+$app->post('/formAddTaskTeacher', function () use ($app) {
+  $class = StudentClass::getAllClass();
+  $subject = Subject::getAllSubjectTeacher($_SESSION['teacherId']);
+  Task::addTaskTeacher($_POST['subjectId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd'], $_POST['name']);
+  $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
   });
+  
+ $app->get('/calendrier', function () use ($app) {
+ $profil = User::getUserById($_SESSION['userid']);
+ $task = Task::getTaskByClassId($_SESSION["classid"]);
+  $app->render('calendrier/calendrier.php', array('profil' =>$profil, 'task'=>$task)); 
+  })->name('calendrier');
 
-  // always need to be at the bottom of this file !
+$app->get('/formAddTaskTeacher', function () use ($app) {
+  $class = StudentClass::getAllClass();
+  $subject = Subject::getAllSubjectTeacher($_SESSION['teacherId']);
+  $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
+  })->name('formAddTaskTeacher');
   $app->run();

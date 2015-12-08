@@ -1,0 +1,45 @@
+.form-group
+{
+	border: 5px solid #ff2c5d;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 auto;
+	max-width: 500px;	
+	margin-top: 50px;
+}
+
+.onglet
+{
+	background-color:  #ff2c5d;
+	border: none;
+	border-radius: 0px;
+	margin-left: 10px;
+}
+.onglet:hover
+{
+	background-color: #CF244B;
+}
+.btn-success
+{
+	background-color: #2dc89b;
+	border: none;
+}
+.btn-success:hover
+{
+	background-color: #239C79;
+}
+.navbar-default
+{
+	background-color:  #ff2c5d;
+	border-radius: 0px;
+	margin: 0px;	
+	color:white;
+}
+.navOnglet
+{
+	color:white;
+}
+.navOnglet:hover
+{
+	color:black;
+}
