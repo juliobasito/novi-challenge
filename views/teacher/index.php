@@ -46,6 +46,20 @@
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
+
+      <?php 
+      foreach ($subject as $key => $value) {
+        echo $value['SubjectName'];
+        echo "</br>";
+        echo $value['Name'];
+        echo "</br>";
+        echo "Classe: ".$value['ClassName'];
+        echo "</br>";
+        echo "</br>";
+        echo " <div></div> ";
+      }
+
+      ?>
       <script src="js/bootstrap.min.js"></script>
     </body>
     </html>
