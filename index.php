@@ -82,7 +82,8 @@ $app->get('/getAllClass', function () use ($app) {
   })->name('getAllClass');
 
 $app->get('/indexTeacher', function () use ($app) {
-  $app->render('teacher/index.php');
+  $subject = Subject::getAllSubjectTeacherAndTaskAndClass($_SESSION['teacherId']);
+  $app->render('teacher/index.php', array('subject' =>$subject));
   })->name('indexTeacher');
 
 $app->post('/formAddTaskTeacher', function () use ($app) {

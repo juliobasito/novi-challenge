@@ -13,6 +13,17 @@ var_dump($_SESSION);
 	<div id="calendar"></div>
 </div>
 <a href="../calendrier">CALENDRIER</a>
+<?php
+
+echo "Bienvenue ".$profilName." élève de ".$class['className'];
+
+$compteur=0;
+foreach ($task as $key => $value) {
+  echo "Projet de ".$value['subjectName'];
+}
+
+var_dump($task);
+?>
 
 <script>
 $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.min.js',function(){
@@ -42,3 +53,4 @@ $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.m
   });
 })
 </script>
+
