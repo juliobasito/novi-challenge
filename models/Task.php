@@ -28,6 +28,27 @@ static function getTaskByClassId($classId) {
  		$flag = array('subjectId' => $subjectId , 'classId' => $classId, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd, 'name' => $name) ;
  		$sql->execute($flag);
  	}
+
+
+static function getTaskBySubjectId($subjectId) {
+  $bdd = new PDO('mysql:host=localhost;dbname=novi','root','');
+
+  $sql2='SELECT *
+        FROM task
+        WHERE subjectId = :subjectId ';
+        $sql = $bdd->prepare($sql2);
+        $sql->bindParam(':subjectId', $subjectId);
+        $sql->execute();
+        $task = [];
+			while($fetch = $sql->fetch())
+			{
+				$task[] = $fetch;
+			}
+        	
+			return $task;
+
+  }
+
 }
 ?>
 
