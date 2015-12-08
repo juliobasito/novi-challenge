@@ -31,6 +31,33 @@ static function connect_user($mail, $password) {
     }
     return false;
   }
+  
+  static function connect_admin($mail, $password) {
+  $db = bdd::Conn();
+
+    if (isset($_POST["mail"]) && isset($_POST["password"])){
+      if ($_POST['mail']!="" && $_POST['password']!="") {
+        $sql='SELECT COUNT(*) AS nb, adminId, mail, password
+        FROM admin
+        WHERE mail = "'.$mail.'"
+        AND password = "'.$password.'"';
+        $result = $db->prepare($sql);
+        $columns = $result->execute();
+        $columns = $result->fetch();
+        $nb = $columns['nb'];
+        if ($nb == 1) {
+          session_start();
+          $_SESSION['adminId'] = $columns['adminId'];
+          $_SESSION['mail'] = $columns['mail'];
+          return true;
+        }else{
+          return false;
+        }
+      }
+      return false;
+    }
+    return false;
+  }
 
   static function connect_teacher($mail, $password) {
   $db = bdd::Conn();
@@ -41,7 +68,8 @@ static function connect_user($mail, $password) {
    $sql->execute($flag);
    $columns = $sql->fetch();
    $nb = sizeof($columns);
-   if($nb > 0)
+   echo "monnb".$nb;
+   if($nb > 1)
    {
     session_start();
     $_SESSION['teacherId'] = $columns['teacherId'];
@@ -81,6 +109,25 @@ static function getUserById($userId) {
 
       return $user; 
   }
+  
+ public static function listUser() {
+	$db = bdd::Conn();
+	$sql2 = "SELECT * FROM user";
+	$sql = $db->prepare($sql2);
+	$sql->execute();
+	$fetch = $sql->fetch();
+	return $fetch;
+ }
+ 
+  public static function listTeacher() {
+	$db = bdd::Conn();
+	$sql2 = "SELECT * FROM teacher";
+	$sql = $db->prepare($sql2);
+	$sql->execute();
+	$fetch = $sql->fetch();
+	return $fetch;
+ }
+ 
 
 
 

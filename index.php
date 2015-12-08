@@ -50,13 +50,33 @@ require_once 'models/subject.php';
   $app->post('/logTeacher', function () use ($app) {
   session_destroy();
   $isconnected = User::connect_teacher($_POST['mail'], $_POST['password']);
+  var_dump($isconnected);
   if ($isconnected){
     $app->redirect($app->urlFor('indexTeacher'));
   }
   else{
   $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+  $app->redirect($app->urlFor('index'));
  }
 })->name('logTeacher');
+
+$app->post('/logAdmin', function () use ($app) {
+  session_destroy();
+  $isconnected = User::connect_admin($_POST['mail'], $_POST['password']);
+  if ($isconnected){
+    $app->redirect($app->urlFor('indexAdmin'));
+  }
+  else{
+  $app->flash('erreur', 'Vous ne remplissez pas les conditions requises');
+  $app->redirect($app->urlFor('index'));
+ }
+})->name('logAdmin');
+
+$app->get('/indexAdmin', function () use ($app) {
+  $app->render('admin/index.php');
+  })->name('indexAdmin');
+
+
 
   // GET /
 $app->get('/profil/:user_id', function ($user_id) use ($app) {
@@ -103,4 +123,14 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $subject = Subject::getAllSubjectTeacher($_SESSION['teacherId']);
   $app->render('teacher/formAddTaskTeacher.php', array('class' =>$class, 'subject' => $subject)); 
   })->name('formAddTaskTeacher');
+  
+  $app->get('/listUser', function () use ($app) {
+  $alluser = User::listUser();
+  $app->render('admin/listUser.php', array('alluser' =>$alluser)); 
+  })->name('listUser');
+  
+  $app->get('/listTeacher', function () use ($app) {
+  $allteacher = User::listTeacher();
+  $app->render('admin/listTeacher.php', array('allteacher' =>$allteacher)); 
+  })->name('listTeacher');
   $app->run();
