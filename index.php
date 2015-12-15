@@ -163,6 +163,14 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $app->render('admin/addUser.php', array('allclass'=>$allclass, 'result'=>$result)); 
   });
 
+  $app->post('/update', function () use ($app) {
+  if($_POST['type']==1)//ADMIN
+  {
+    User::updateAdmin($_POST['id'], $_POST['mail'], $_POST['password']);
+  }
+  $app->redirect($app->urlFor('gestionUser'));
+  });
+
   $app->get('/gestionUser', function () use ($app) {
   $alladmin = User::listAdmin();
   $allteacher = User::listTeacher();

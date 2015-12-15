@@ -231,6 +231,13 @@ static function getUserById($userId) {
   $flags = array('adminId' =>$adminId);
   $sql->execute($flags);
  }
+ public static function updateAdmin($adminId, $mail, $password)
+ {
+  $db = bdd::Conn();
+  $sql = $db->prepare('UPDATE admin SET mail = :mail, password = :password WHERE adminId = :adminId');
+  $flags = array('mail' =>$mail , 'password'=>$password, 'adminId'=>$adminId);
+  $sql->execute($flags);
+ }
 }
 ?>
 
