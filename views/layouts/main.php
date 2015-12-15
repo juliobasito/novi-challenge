@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <?php if($_SESSION['role']==2){ echo '
+                 <?php if($_SESSION['role']==2 || $_SESSION['role'] == 1){ echo '
                 <a class="navbar-brand topnav" href="indexTeacher">Novi - Challenge</a>
                 ';}
                 ?>
@@ -64,6 +64,12 @@
                      echo '
                     <li>
                         <a href="gestionUser">Gestion utilisateurs</a>
+                    </li>
+                    <li>
+                        <a href="gestionClass">Gestion des classes</a>
+                    </li>
+                    <li>
+                        <a href="gestionSubject">Gestion des matières</a>
                     </li>
                     ';
                     }

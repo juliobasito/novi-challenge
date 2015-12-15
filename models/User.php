@@ -215,6 +215,29 @@ static function getUserById($userId) {
      }
      return 0;
  }
+ public static function delUser($userId)
+ {
+  $db = bdd::Conn();
+  $sql = $db->prepare('DELETE FROM user WHERE userId = :userId');
+  $flags = array('userId' =>$userId);
+  $sql->execute($flags);
+ }
+
+ public static function delTeacher($teacherId)
+ {
+  $db = bdd::Conn();
+  $sql = $db->prepare('DELETE FROM teacher WHERE teacherId = :teacherId');
+  $flags = array('teacherId' =>$teacherId);
+  $sql->execute($flags);
+ }
+
+ public static function delAdmin($adminId)
+ {
+  $db = bdd::Conn();
+  $sql = $db->prepare('DELETE FROM admin WHERE adminId = :adminId');
+  $flags = array('adminId' =>$adminId);
+  $sql->execute($flags);
+ }
 }
 ?>
 

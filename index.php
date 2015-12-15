@@ -191,4 +191,47 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $allclass = StudentClass::getAllClass();
   $app->render('admin/gestionUser.php', array('alladmin'=>$alladmin,'allteacher' =>$allteacher, 'alluser' =>$alluser, 'allclass'=>$allclass, 'subjectTeacher'=>$subjectTeacher)); 
   })->name('gestionUser');
+
+  $app->get('/delUser/:userId', function ($userId) use ($app) {
+  User::delUser($userId);
+  $app->redirect($app->urlFor('gestionUser'));
+  })->name('delUser');
+  
+  $app->get('/delTeacher/:teacherId', function ($teacherId) use ($app) {
+  User::delTeacher($teacherId);
+  $app->redirect($app->urlFor('gestionUser'));
+  })->name('delTeacher');
+  
+
+$app->get('/delAdmin/:adminId', function ($adminId) use ($app) {
+  User::delAdmin($adminId);
+  $app->redirect($app->urlFor('gestionUser'));
+  })->name('delAdmin');
+
+$app->get('/gestionClass', function () use ($app) {
+  $allclass = StudentClass::getAllClass();
+  $app->render('admin/gestionClass.php', array('allclass'=>$allclass));
+  })->name('gestionClass');
+
+$app->get('/addClass', function () use ($app) {
+  $app->render('admin/addClass.php');
+  })->name('addClass');
+
+$app->post('/addClass', function () use ($app) {
+  $result = StudentClass::addClass($_POST['className']);
+  $app->redirect($app->urlFor('gestionClass'));
+  });
+
+$app->get('/delClass/:classId', function ($classId) use ($app) {
+  $result = StudentClass::delClass($classId);
+  $app->redirect($app->urlFor('gestionClass'));
+  });
+
+$app->get('/gestionSubject', function () use ($app) {
+  $result = Subject::getAllSubject();
+  $app->render('admin/gestionSubject.php');
+  })->name('gestionSubject');
+
+  
+
   $app->run();

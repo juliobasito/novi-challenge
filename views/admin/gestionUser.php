@@ -22,7 +22,7 @@
                 $size = sizeof($alladmin);
                 while($i<$size)
                 {
-                    echo'
+                   echo'
                     <tr>
                     <td>
                     '.$alladmin[$i]['mail'].'
@@ -31,7 +31,7 @@
                     <a>Modifier</a>
                     </td>
                     <td>
-                    <a>Supprimer</a>
+                    <a href="delAdmin/'.$alladmin[$i]['adminId'].'">Supprimer</a>
                     </td>
                     </tr>
                     ';
@@ -63,7 +63,7 @@
                     <a>Modifier</a>
                     </td>
                     <td>
-                    <a>Supprimer</a>
+                    <a href="delTeacher/'.$allteacher[$i]['teacherId'].'">Supprimer</a>
                     </td>
                     </tr>
                     ';
@@ -103,7 +103,7 @@
                     <a>Modifier</a>
                     </td>
                     <td>
-                    <a>Supprimer</a>
+                    <a href="delUser/'.$alluser[$i]['userId'].'">Supprimer</a>
                     </td>
                     </tr>
                     ';
