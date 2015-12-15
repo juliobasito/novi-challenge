@@ -152,8 +152,6 @@
             <h3>Modifier un Formateur: </h3><br/>
             <label>Id: </label><br/>
             <input type="number" name="id" class="form-control" required><br/>
-            <label>Mail: </label><br/>
-            <input type="mail" name="mail" class="form-control" required><br/>
             <label>Mot de passe: </label><br/>
             <input type="password" name="password" required class="form-control"><br/>
             <input type="submit" value="Valider" class="btn btn-default">
@@ -164,8 +162,6 @@
             <h3>Modifier un Administrateur: </h3><br/>
             <label>Id: </label><br/>
             <input type="number" name="id" class="form-control" required><br/>
-            <label>Mail: </label><br/>
-            <input type="mail" name="mail" class="form-control" required><br/>
             <label>Mot de passe: </label><br/>
             <input type="password" name="password" required class="form-control"><br/>
             <input type="submit" value="Valider" class="btn btn-default">

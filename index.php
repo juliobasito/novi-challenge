@@ -166,7 +166,15 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $app->post('/update', function () use ($app) {
   if($_POST['type']==1)//ADMIN
   {
-    User::updateAdmin($_POST['id'], $_POST['mail'], $_POST['password']);
+    User::updateAdmin($_POST['id'], $_POST['password']);
+  }
+  else if ($_POST['type']==2) //TEACHER
+  {
+    User::updateTeacher($_POST['id'], $_POST['password']); 
+  }
+  else if($_POST['type']==3) //USER
+  {
+     User::updateUser($_POST['id'], $_POST['password'], $_POST['class']);
   }
   $app->redirect($app->urlFor('gestionUser'));
   });
