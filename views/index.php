@@ -46,7 +46,7 @@
                   <!--FORMULAIRE ADMINISTRATION-->
                   <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                      <form id="admin"  method="POST" class="form-group" style="display:none">
+                      <form id="admin"  method="POST" class="form-group" style="display:none" action="logAdmin">
                         <h3 id="title">Connexion Administration</h3>
                         Mail : <input type="mail" name="mail" required class="form-control"><br/>
                         Mot de passe : <input type="password" name="password" required class="form-control"><br/>

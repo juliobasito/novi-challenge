@@ -87,6 +87,11 @@ $app->get('/profil/:user_id', function ($user_id) use ($app) {
   $app->render('profil/index.php', array('profil'=>$profil, 'class'=>$class, 'tache' => $tache));
   })->name('profil');
 
+$app->get('/deconnexion', function () use ($app) {
+  User::deconnexion();
+  $app->redirect($app->urlFor('index'));
+  })->name('deconnexion');
+
   // GET /
 $app->get('/profil', function () use ($app) {
  // $profil = User::getUser($_SESSION['userId']);
@@ -134,4 +139,33 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $allteacher = User::listTeacher();
   $app->render('admin/listTeacher.php', array('allteacher' =>$allteacher)); 
   })->name('listTeacher');
+
+  $app->get('/gestionUser', function () use ($app) {
+  $alladmin = User::listAdmin();
+  $allteacher = User::listTeacher();
+  $i = 0;
+  $size = sizeof($allteacher);
+  $tab = [];
+  while($i < $size)
+  {
+    $tab[] = subject::getAllSubjectTeacher($allteacher[$i]['teacherId']);
+    $i++;
+  }
+  $subjectTeacher = array();
+  $i =0;
+  $j =0;
+  while($i < $size)
+  {
+    $size2 = sizeof($tab[$i]);
+    while($j < $size2)
+    {
+      $subjectTeacher[$tab[$i][$j]['teacherId']] = $tab[$i][$j]['subjectName'];
+      $j++;
+    }
+    $i++;
+  }
+  $alluser = User::listUser();
+  $allclass = StudentClass::getAllClass();
+  $app->render('admin/gestionUser.php', array('alladmin'=>$alladmin,'allteacher' =>$allteacher, 'alluser' =>$alluser, 'allclass'=>$allclass, 'subjectTeacher'=>$subjectTeacher)); 
+  })->name('gestionUser');
   $app->run();

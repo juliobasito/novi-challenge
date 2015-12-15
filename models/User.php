@@ -3,7 +3,10 @@ class User {
 
 
 
-
+static function deconnexion()
+{
+session_destroy();
+}
 static function connect_user($mail, $password) {
   $db = bdd::Conn();
 
@@ -22,6 +25,7 @@ static function connect_user($mail, $password) {
           $_SESSION['userid'] = $columns['userid'];
           $_SESSION['mail'] = $columns['mail'];
           $_SESSION['classid'] = $columns['classid'];
+          $_SESSION['role'] = 3;
           return true;
         }else{
           return false;
@@ -49,6 +53,7 @@ static function connect_user($mail, $password) {
           session_start();
           $_SESSION['adminId'] = $columns['adminId'];
           $_SESSION['mail'] = $columns['mail'];
+          $_SESSION['role'] = 1;
           return true;
         }else{
           return false;
@@ -74,7 +79,7 @@ static function connect_user($mail, $password) {
     session_start();
     $_SESSION['teacherId'] = $columns['teacherId'];
     $_SESSION['mail'] = $columns['mail'];
-    $_SESSION['password'] = $columns['password'];
+    $_SESSION['role'] = 2;
     return true;
    }
    return false;
@@ -115,8 +120,12 @@ static function getUserById($userId) {
 	$sql2 = "SELECT * FROM user";
 	$sql = $db->prepare($sql2);
 	$sql->execute();
-	$fetch = $sql->fetch();
-	return $fetch;
+	$tab = [];
+  while($fetch = $sql->fetch())
+  {
+    $tab[] = $fetch;
+  }
+	return $tab;
  }
  
   public static function listTeacher() {
@@ -124,11 +133,26 @@ static function getUserById($userId) {
 	$sql2 = "SELECT * FROM teacher";
 	$sql = $db->prepare($sql2);
 	$sql->execute();
-	$fetch = $sql->fetch();
-	return $fetch;
+  $tab = [];
+	while($fetch = $sql->fetch())
+  {
+    $tab[] = $fetch;
+  }
+	return $tab;
  }
  
-
+ public static function listAdmin() {
+  $db = bdd::Conn();
+  $sql2 = "SELECT * FROM admin";
+  $sql = $db->prepare($sql2);
+  $sql->execute();
+  $tab = [];
+  while($fetch = $sql->fetch())
+  {
+    $tab[] = $fetch;
+  }
+  return $tab;
+ }
 
 
 

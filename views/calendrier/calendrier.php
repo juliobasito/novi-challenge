@@ -520,7 +520,9 @@ table.fc-border-separate {
 	cursor: s-resize;
 	}
 	
-	
+#calendar {
+	margin-top: 50px;
+}
 
 </style>
 
@@ -546,14 +548,28 @@ $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.m
     },
     editable: true,
     events: [
-    <?php while($i < $size)
+    <?php 
+    $i=0;
+    while($i < $size)
     {
-    	echo'
-      {
-        title: "'.$task[$i]["name"].'",
-        start: "'.$task[$i]["dateStart"].'",
-        end: "'.$task[$i]["dateEnd"].'"
-   	  },';
+    	if ($i == 0)
+    	{
+    		echo'
+     		 {
+        		title: "'.$task[$i]["name"].'",
+        		start: "'.$task[$i]["dateStart"].'",
+        		end: "'.$task[$i]["dateEnd"].'"
+   	  		}';
+   	  	}
+   	  	else
+   	  	{
+   	  		echo'
+     		 ,{
+        		title: "'.$task[$i]["name"].'",
+        		start: "'.$task[$i]["dateStart"].'",
+        		end: "'.$task[$i]["dateEnd"].'"
+   	  		}';
+   	  	}
    	  $i++;
    	}?>
     ]

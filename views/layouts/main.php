@@ -35,6 +35,8 @@
 <body>
 
     <!-- Navigation -->
+    <?php if (isset($_SESSION['role']))
+    { ?>
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -45,19 +47,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Novi - Challenge</a>
+                 <?php if($_SESSION['role']==2){ echo '
+                <a class="navbar-brand topnav" href="indexTeacher">Novi - Challenge</a>
+                ';}
+                ?>
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                     <?php if($_SESSION['role']==2){ echo '
+                     <li>
+                        <a href="formAddTaskTeacher">Ajouter une tache</a>
+                    </li>'; }
+                    if($_SESSION['role']==1){
+                     echo '
                     <li>
-                        <a href="#about">Team</a>
+                        <a href="gestionUser">Gestion utilisateurs</a>
                     </li>
+                    ';
+                    }
+                    ?>
                     <li>
-                        <a href="#services">About</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Prices</a>
+                        <a href="deconnexion">Log-out</a>
                     </li>
                 </ul>
             </div>
@@ -66,6 +78,7 @@
         <!-- /.container -->
     </nav>
       <?php 
+    }
             // my view content will be placed here
       echo $yield 
       ?>
