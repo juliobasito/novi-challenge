@@ -54,9 +54,6 @@
                     '.$allteacher[$i]['mail'].'
                     </td>
                     <td>
-                    '.$subjectTeacher[$allteacher[$i]['teacherId']].'
-                    </td>
-                    <td>
                     '.$allteacher[$i]['password'].'
                     </td>
                     <td>

@@ -184,13 +184,6 @@ static function getUserById($userId) {
      $sql2 = $db->prepare('SELECT count(mail) AS nb FROM teacher');
      $sql2->execute();
      $after = $sql2->fetch();
-     $sql = $db->prepare('SELECT * FROM teacher ORDER BY teacherId DESC LIMIT 1');
-     $sql->execute();
-     $donnee = $sql->fetch();
-     $teacherId = $donnee['teacherId'];
-     $sql = $db->prepare('INSERT INTO subject (subjectName, teacherId) VALUES (:subject, :teacherId)');
-     $flags = array('subject' =>$subject , 'teacherId'=>$teacherId);
-     $sql->execute($flags);
      if($before['nb'] < $after['nb'])
      {
       return 1;

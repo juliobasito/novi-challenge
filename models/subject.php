@@ -38,6 +38,20 @@ class Subject {
 		}
 		return $tab;
 	}
+	public static function delSubject($subjectId)
+	{
+		$db = bdd::Conn();
+		$sql = $db->prepare('DELETE FROM subject WHERE subjectId = :subjectId');
+		$flag = array('subjectId' =>$subjectId);
+		$sql->execute($flag);
+	}
+	public static function addSubject($subjectName, $teacherId)
+	{
+		$db = bdd::Conn();
+		$sql = $db->prepare('INSERT INTO subject (subjectName, teacherId) VALUES (:subjectName, :teacherId)');
+		$flag = array('subjectName' =>$subjectName, 'teacherId'=>$teacherId);
+		$sql->execute($flag);
+	}
 
 }
 ?>

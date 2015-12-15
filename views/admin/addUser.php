@@ -66,8 +66,6 @@
         <input type="mail" name="mail" required class="form-control"><br/>
         <label>Mot de passe: </label><br/>
         <input type="password" name="password" required class="form-control"><br/>
-        <label>Matière: </label><br/>
-        <input type="text" name="subject" required class="form-control"><br/>
         <input type="submit" value="Valider" class="btn btn-default"><br/>
       </form>
     </div>

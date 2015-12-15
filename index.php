@@ -154,7 +154,7 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
 
       else if($_POST['type'] == 2) // Teacher
       {
-        $result = User::addTeacher($_POST['mail'], $_POST['password'], $_POST['subject']);
+        $result = User::addTeacher($_POST['mail'], $_POST['password']);
       }
       else if($_POST['type'] == 3) //Admin
       {
@@ -227,9 +227,33 @@ $app->get('/delClass/:classId', function ($classId) use ($app) {
   $app->redirect($app->urlFor('gestionClass'));
   });
 
+$app->get('/addSubject', function () use ($app) {
+  $allteacher = User::listTeacher();
+  $app->render('admin/addSubject.php',array('allteacher'=>$allteacher));
+  })->name('addSubject');
+
+$app->post('/addSubject', function () use ($app) {
+  Subject::addSubject($_POST['subjectName'], $_POST['teacherId']);
+  $app->redirect($app->urlFor('gestionSubject'));
+  });
+
+$app->get('/delSubject/:sucjectId', function ($subjectId) use ($app) {
+  $result = Subject::delSubject($subjectId);
+  $app->redirect($app->urlFor('gestionSubject'));
+  });
+
 $app->get('/gestionSubject', function () use ($app) {
-  $result = Subject::getAllSubject();
-  $app->render('admin/gestionSubject.php');
+  $allsubject = Subject::getAllSubject();
+  $allteacher = User::listTeacher();
+  $tab = array();
+  $i = 0;
+  $size = sizeof($allteacher);
+  while($i < $size)
+  {
+    $tab[$allteacher[$i]['teacherId']] = $allteacher[$i]['mail'];
+    $i++;
+  }
+  $app->render('admin/gestionSubject.php',array('allsubject'=>$allsubject, 'tab'=>$tab));
   })->name('gestionSubject');
 
   
