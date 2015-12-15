@@ -19,6 +19,7 @@
                             <li>
                                 <a href="#" class="btn btn-default btn-lg btUser"><i class="fa fa-graduation-cap fa-fw"></i> <span class="network-name">Etudiant</span></a>
                             </li>
+                            
                         </ul>
                         <div class="row">
                     <div class="col-md-6 col-md-offset-3">

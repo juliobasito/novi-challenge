@@ -140,6 +140,29 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $app->render('admin/listTeacher.php', array('allteacher' =>$allteacher)); 
   })->name('listTeacher');
 
+  $app->get('/addUser', function () use ($app) {
+    $allclass = StudentClass::getAllClass();
+  $app->render('admin/addUser.php', array('allclass'=>$allclass)); 
+  })->name('addUser');
+
+  $app->post('/addUser', function () use ($app) {
+    $allclass = StudentClass::getAllClass();
+    if($_POST['type'] == 1) // Student
+      {
+       $result = User::addUser($_POST['mail'], $_POST['password'], $_POST['class']); 
+      }
+
+      else if($_POST['type'] == 2) // Teacher
+      {
+        $result = User::addTeacher($_POST['mail'], $_POST['password'], $_POST['subject']);
+      }
+      else if($_POST['type'] == 3) //Admin
+      {
+        $result = User::addAdmin($_POST['mail'], $_POST['password']);
+      }
+  $app->render('admin/addUser.php', array('allclass'=>$allclass, 'result'=>$result)); 
+  });
+
   $app->get('/gestionUser', function () use ($app) {
   $alladmin = User::listAdmin();
   $allteacher = User::listTeacher();
@@ -148,7 +171,7 @@ $app->get('/formAddTaskTeacher', function () use ($app) {
   $tab = [];
   while($i < $size)
   {
-    $tab[] = subject::getAllSubjectTeacher($allteacher[$i]['teacherId']);
+    $tab[] = subject::getAllSubject();
     $i++;
   }
   $subjectTeacher = array();

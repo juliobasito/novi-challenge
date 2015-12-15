@@ -154,8 +154,67 @@ static function getUserById($userId) {
   return $tab;
  }
 
-
-
+ public static function addUser($mail, $password, $classId)
+ {
+     $db = bdd::Conn();
+     $sql = $db->prepare('SELECT count(mail) AS nb FROM user');
+     $sql->execute();
+     $before = $sql->fetch();
+     $sql = $db->prepare('INSERT INTO user (mail, password, classId) VALUES (:mail, :password, :classId)');
+     $flags = array('mail' => $mail , 'password'=>$password, 'classId'=>$classId);
+     $sql->execute($flags);
+     $sql2 = $db->prepare('SELECT count(mail) AS nb FROM user');
+     $sql2->execute();
+     $after = $sql2->fetch();
+     if($before['nb'] < $after['nb'])
+     {
+      return 1;
+     }
+     return 0;
+ }
+ public static function addTeacher($mail, $password, $subject)
+ {
+     $db = bdd::Conn();
+     $sql = $db->prepare('SELECT count(mail) AS nb FROM teacher');
+     $sql->execute();
+     $before = $sql->fetch();
+     $sql = $db->prepare('INSERT INTO teacher (mail, password) VALUES (:mail, :password)');
+     $flags = array('mail' => $mail , 'password'=>$password);
+     $sql->execute($flags);
+     $sql2 = $db->prepare('SELECT count(mail) AS nb FROM teacher');
+     $sql2->execute();
+     $after = $sql2->fetch();
+     $sql = $db->prepare('SELECT * FROM teacher ORDER BY teacherId DESC LIMIT 1');
+     $sql->execute();
+     $donnee = $sql->fetch();
+     $teacherId = $donnee['teacherId'];
+     $sql = $db->prepare('INSERT INTO subject (subjectName, teacherId) VALUES (:subject, :teacherId)');
+     $flags = array('subject' =>$subject , 'teacherId'=>$teacherId);
+     $sql->execute($flags);
+     if($before['nb'] < $after['nb'])
+     {
+      return 1;
+     }
+     return 0;
+ }
+ public static function addAdmin($mail, $password)
+ {
+     $db = bdd::Conn();
+     $sql = $db->prepare('SELECT count(mail) AS nb FROM admin');
+     $sql->execute();
+     $before = $sql->fetch();
+     $sql = $db->prepare('INSERT INTO admin (mail, password) VALUES (:mail, :password)');
+     $flags = array('mail' => $mail , 'password'=>$password);
+     $sql->execute($flags);
+     $sql2 = $db->prepare('SELECT count(mail) AS nb FROM admin');
+     $sql2->execute();
+     $after = $sql2->fetch();
+     if($before['nb'] < $after['nb'])
+     {
+      return 1;
+     }
+     return 0;
+ }
 }
 ?>
 
