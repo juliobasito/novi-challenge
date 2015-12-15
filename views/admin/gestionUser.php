@@ -14,7 +14,7 @@
                 <a class="btn btn-default btn-lg btUser"><i class="glyphicon glyphicon-plus"></i> <span class="network-name">Ajouter</span></a>
             </li>
             <li>
-                <a onclick="updateShow()" class="btn btn-default btn-lg btUser"><i class="glyphicon glyphicon-plus"></i> <span class="network-name">Modifier</span></a>
+                <a onclick="updateShow()" class="btn btn-default btn-lg btUser"><i class="glyphicon glyphicon-pencil"></i> <span class="network-name">Modifier</span></a>
             </li>
         </ul>
         <div id="listAdmin" style="display:none">
