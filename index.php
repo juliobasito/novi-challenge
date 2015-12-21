@@ -73,10 +73,15 @@ $app->post('/logAdmin', function () use ($app) {
 })->name('logAdmin');
 
 $app->get('/indexAdmin', function () use ($app) {
-  $app->render('admin/index.php');
+  $class = StudentClass::getAllClass();
+  $subject = Subject::getAllSubject($_SESSION);
+   $app->render('admin/index.php', array('class'=>$class, 'subject'=>$subject));
   })->name('indexAdmin');
 
-
+$app->post('/indexAdmin', function () use ($app) {
+  Task::addTaskTeacher($_POST['subjectId'], $_POST['classId'], $_POST['dateStart'], $_POST['dateEnd'], $_POST['name']);
+ $app->redirect($app->urlFor('indexAdmin'));
+  });
 
   // GET /
 $app->get('/profil/:user_id', function ($user_id) use ($app) {
